@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+</head>
+<body style="font-family: "Segoe UI";">
+    <div>
+        <h2>Authenticate</h2>
+        <input type="button" value="Login" />
+    </div>
+
+    <div>
+        <h2>GetDriveTime</h2>
+        <label>Appointment Id</label><br />
+        <input type="text" id="getAppointment" value="123" />
+        <input type="button" value="Get" onclick="GetDriveTime();" />
+        <div id="getOutput0"></div>
+        <div id="getOutput1"></div>
+    </div>
+
+    <script>
+        function GetDriveTime() {
+            var root = "api/DriveTime";
+            var id = $("#getAppointment").val();
+            var path = [root, id].join("/");
+            $.getJSON(path)
+                .done(function (result) {
+                    $("#getOutput0").text("Appointment: " + result.Appointment);
+                    $("#getOutput1").text("Result: " + result.ResultString);
+                })
+                    .fail(function (jqXHR, textStatus, err) {
+                        $("#getOutput0").text("Error: " + err);
+                        $("#getOutput1").text();
+                    });
+        }
+    </script>
+
+</body>
+</html>
